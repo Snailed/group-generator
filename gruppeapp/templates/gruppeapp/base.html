@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+        <title>{% block title %} {% endblock %}</title>
+        <link rel="stylesheet" href="{% static "gruppeapp/css/base.css" %}"
+        <link rel="stylesheet" href="{% block css %} {% endblock %}">
+        <!--Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+
+    <body>
+    <!-- Navbar -->
+    <div class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+
+          <!-- Button that toggles navbar content on mobile displays -->
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-content">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <!-- Brand logo TODO: Add link! -->
+          <a href="{% url 'gruppeapp:makegroup' %}" class="navbar-brand">Group Generator</a>
+        </div>
+
+        <!-- Navbar content TODO: Replace placeholders!-->
+        <div class="collapse navbar-collapse" id="navbar-content">
+          <ul class="nav navbar-nav">
+            <li><a href="#">About</a></li>
+          </ul>
+
+          <!-- TODO: Replace placeholder and add hidability-->
+          <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+            <li><p class="navbar-text">Signed in as <a class="navbar-link" href="#">{{user.username}}</a> </p></li>
+          {% else %}
+            <li><p class="navbar-text">Welcome, new user. Please sign up or log in to make better groups quicker.</p></li>
+          {% endif %}
+
+          {% if not user.is_authenticated %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log In</a>
+            <ul class="dropdown-menu">
+              <div id="dropdownmenu">
+              <li><h5>Have an account?</h5></li>
+              <li><form action="{% url 'gruppeapp:login'%}" method="POST">
+                {% csrf_token %}
+                {{loginform}}
+                <p>Remember me <input name="remember_me" type="checkbox"></p>
+                <input class="btn btn-primary" type="submit" value="Login"/>
+              </form></li>
+              <li role="separator" class="divider"></li>
+              <li> <h5>Don't have an account?</h5> <a href="{% url 'gruppeapp:register' %}" class="btn btn-default">Sign Up</a> </li>
+
+            </div>
+
+            </ul>
+          </li>
+          {% endif %}
+
+          {% if not user.is_authenticated %}
+          <li><a href="{% url 'gruppeapp:register' %}" class="">Sign Up</a></li>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'gruppeapp:logout' %}" class="">Log Out</a></li>
+          {% endif %}
+        </ul>
+        </div>
+
+
+      </div>
+    </div>
+    {% block body %}
+
+
+    {% endblock body %}
+    </body>
+    <!-- JQuery -->
+    <script
+			  src="https://code.jquery.com/jquery-3.2.1.js"
+			  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+			  crossorigin="anonymous"></script>
+    <!--Bootstrap JavaScript-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    {% block scripts %}
+    {% endblock scripts %}
+</html>

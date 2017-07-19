@@ -1,0 +1,16 @@
+{% for field in form %}
+<div class="container">
+  <div class="form-group">
+    <p>{{field.errors}}</p>
+
+
+
+
+      <div class="col-md-10 col-sm-2">
+        {{field.label_tag}} <br>
+
+        {{field}}
+      </div>
+  </div>
+</div>
+{%endfor%}

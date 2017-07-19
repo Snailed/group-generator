@@ -1,0 +1,33 @@
+This is a graveyard for old code
+
+Old creategroup that is a functional view. I switched to Class-based views.
+# def creategroup(request):
+#     numberofgroups = 3
+#     students = []
+#     if request.method == 'POST':
+#         studentCounter = request.POST["studentcounter"]
+#         numberofgroups = int(request.POST["numberofgroupsinput"])
+#         for i in range(0,int(studentCounter)+1):
+#             try:
+#                 currentStudent = unicode(request.POST["student"+str(i)])
+#             except MultiValueDictKeyError:
+#                 error = True
+#                 errormessage = "No students added"
+#                 context = {"error": error, "errormessage": errormessage}
+#                 return render(request, "gruppeapp/welcome.html", context)
+#             except ValueError:
+#                 error = True
+#                 errormessage = "You didn't choose how many groups should be made"
+#                 context = {"error": error, "errormessage": errormessage}
+#                 return render(request, "gruppeapp/welcome.html", context)
+#             students.append(currentStudent)
+#     shuffle(students)
+#     linkhash=uuid.uuid4().hex
+#     gruppe = Gruppe(link=linkhash, antalgrupper=numberofgroups)
+#     gruppe.save()
+#
+#     for number, iterator in enumerate(students):
+#         student = GruppeElev(navn=iterator, position=number, gruppe=gruppe)
+#         student.save()
+#
+#     return redirect("gruppeapp:viewgroup", linkhash=linkhash)

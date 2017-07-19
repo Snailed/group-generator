@@ -1,0 +1,78 @@
+{% extends "gruppeapp/base.html" %}
+{% load static %}
+
+{% block title %}Group Generator{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row">
+    <!-- Left side -->
+    <h1> Group Generator </h1>
+
+
+    <!-- optional error message (will be woked when user tries to do something bad) -->
+    {% if error %}
+    <div class="alert alert-warning">
+      <h4><strong>Error!</strong> {{errormessage}}</h4>
+    </div>
+    {% endif %}
+  <div class="col-md-6">
+    <!-- Table that shows current students -->
+    <h4>Students added:</h4>
+    <table class="table col-md-3 pull-left" id="grouptable">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+      </tr>
+
+    </table>
+    <button class="btn btn-sm col-md-2 pull-right" id="clear">Clear Class</button>
+  </div>
+
+  <!-- Right side -->
+    <div class="col-md-6">
+
+
+
+
+
+
+      <!-- Form for adding students -->
+      <p>Add students: </p>
+      <form id="addstudent" action="javascript:void(0);">
+        <div class="input-group">
+          <input type="text" id="nameinput" placeholder="Student name" class="form-control">
+
+          <span class="input-group-btn">
+            <button class="btn btn-default">Add Student</button>
+          </span>
+        </div>
+      </form>
+
+
+
+
+
+      <br/>
+      <p>Number of groups:</p>
+      <!-- Hidden form containing students -->
+      <form id="studentlist" action="{% url 'gruppeapp:creategroup' %}" method="post">
+        {% csrf_token %}
+        <input type='hidden' id="studentcounter" name="studentcounter" value=0>
+
+        <!-- Input that contains how many groups -->
+        <input type='number' min="1" max="20" name="numberofgroupsinput" placeholder="Number of groups" required="True">
+        <button class="btn btn-primary" type="submit">Generate Group</button>
+      </form>
+
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static "gruppeapp/js/welcome.js" %}"></script>
+{% endblock scripts %}

@@ -1,0 +1,53 @@
+{% extends "gruppeapp/base.html" %}
+{% load static %}
+
+{% block title %}Group Generator{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row">
+    <h1>Your group: </h1>
+
+
+    <table class="table table-bordered" id="generatedgrouptable">
+      <tr>
+        <th></th>
+        {%for i in numberofgroupsrange %}
+          <th>{{forloop.counter}}</th>
+        {%endfor%}
+      </tr>
+      <tr>
+        <th>
+          A
+        </th>
+      {%for student in students %}
+        {% if not student is None %}
+
+              <td>
+                {{student}}
+              </td>
+
+            {% if forloop.counter|divisibleby:numberofgroups %}
+
+            </tr>
+              {% if not forloop.counter == students|length %}
+            <tr>
+              <th>
+                {% cycle "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "X" "Y" "Z" %}
+              </th>
+              {%endif%}
+            {%endif%}
+          {%endif%}
+      {%endfor%}
+    </tr>
+    </table>
+  </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock scripts %}
