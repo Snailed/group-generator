@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^register/$', views.SignUpView.as_view(), name="register"),
     url(r'^login/$', views.LoginView.as_view(), name="login"),
     url(r'^logout/$', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name="logout"),
+    url(r'^myclasses/$', views.MyClassesView.as_view(), name="myclasses"),
     url(r'^$', views.makegroup, name='makegroup'),
 
 ]

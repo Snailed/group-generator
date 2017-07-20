@@ -131,3 +131,15 @@ class LoginView(View):
             return redirect("gruppeapp:makegroup")
     def get(self, request):
         return redirect("gruppeapp:makegroup")
+
+
+class MyClassesView(View):
+    template_name="gruppeapp/myclasses.html"
+    def post(self, request):
+        pass
+
+    def get(self, request):
+
+        classes = Klasse.objects.filter(user=request.user)
+        context = {"classes": classes, "loginform": LoginForm(None)}
+        return render(request, self.template_name, context)
