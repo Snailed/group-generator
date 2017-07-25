@@ -9,8 +9,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.password_validation import validate_password, password_validators_help_texts
 from django.core.exceptions import ValidationError
-from models import Gruppe, GruppeElev
-from models import Gruppe, GruppeElev
+from models import Gruppe, GruppeElev, Klasse, Elev
 from forms import UserForm, LoginForm
 import uuid
 # Create your views here.
@@ -135,11 +134,45 @@ class LoginView(View):
 
 class MyClassesView(View):
     template_name="gruppeapp/myclasses.html"
-    def post(self, request):
-        pass
 
-    def get(self, request):
+
+    def post(self, request):
+        if request.user.is_authenticated:
+            currentstudentname = "" #stores the name of the current student
+            classid = 0
+
+            for key in request.POST: #Gets class id and makes every student of that class not absent
+                if key.endswith("classid"):
+                    classid = request.POST[key]
+                    print("classid = "+str(classid))
+                    currentclass = Klasse.objects.filter(id=classid)[0]
+                    Elev.objects.filter(klasse=currentclass).update(syg=False)
+
+            for key in request.POST:
+                if key.endswith("name"): #gets the name of a student and checks if it already exists. This should be moved to a "Create student" view!
+                    currentstudentname = request.POST[key]
+                    classquery = Klasse.objects.all()[0].id
+                    currentclass = Klasse.objects.filter(id=classid)[0]
+                    studentquery = currentclass.elev_set.filter(navn=currentstudentname)
+                    if studentquery.count() == 0:
+                        student = Elev(navn=currentstudentname, klasse=currentclass, syg=False)
+                        student.save()
+
+                elif key.endswith("absence"):
+                    student = Elev.objects.filter(id=key[:len(key)-7])[0]
+                    print("absent: "+str(student))
+                    student.syg = True
+                    student.save()
+
 
         classes = Klasse.objects.filter(user=request.user)
-        context = {"classes": classes, "loginform": LoginForm(None)}
-        return render(request, self.template_name, context)
+        return render(request, self.template_name,{"classes": classes, "loginform": LoginForm(None)})
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            classes = Klasse.objects.filter(user=request.user)
+            context = {"classes": classes, "loginform": LoginForm(None)}
+            return render(request, self.template_name, context)
+        else:
+            context = {"loginerror": True}
+            return render(request, self.template_name, context)

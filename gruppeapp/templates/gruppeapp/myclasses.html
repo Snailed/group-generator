@@ -3,12 +3,49 @@
 
 {% block title %}Group Generator{% endblock %}
 {% block body %}
+<div class="container">
+
+{%if loginerror is True%}
+<h1 class="page-header">You are not logged in!</h1>
+
+{%endif%}
+
+<div class="col-md-4">
+  <div class="list-group">
+    {%for class in classes %}
+    <a class="list-group-item">
+      <h4 class="list-group-item-heading">{{class.navn}} <span class="badge pull-right">{{class.elev_set.all|length}}</h4>
+      <p class="list-group-item-text">{{class.description}}</p>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+<div class="col-md-8">
+  {%for class in classes%}
+    <form method="post" action="{%url 'gruppeapp:myclasses'%}">
+      {% csrf_token%}
+      <input type="hidden" name="{{class.id}}classid" value="{{class.id}}">
+      <table class="table">
+
+        <tr><th>Name</th><th>Status</th></tr>
+        {%for student in class.elev_set.all %}
+
+          <tr><td>
+            <input type="hidden" name="{{student.id}}name" value="{{student.navn}}">
+            {{student.navn}}
+          </td><td><input type="checkbox" name="{{student.id}}absence" {%if student.syg%}checked{%endif%}></td></tr>
+        {%endfor%}
 
 
+      </table>
+      <button type="submit" class="btn-primary btn pull-right">Save Changes</button>
+    </form>
+
+  {%endfor%}
+</div>
 
 
-
-
+</div>
 {% endblock %}
 
 {% block scripts %}

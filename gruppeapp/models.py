@@ -9,6 +9,7 @@ from django.db import models
 class Klasse(models.Model):
     navn = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    description = models.CharField(max_length=100)
     def __str__(self):
         return self.navn
 class Elev(models.Model):
