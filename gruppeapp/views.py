@@ -140,7 +140,7 @@ class MyClassesView(View):
         if request.user.is_authenticated:
             currentstudentname = "" #stores the name of the current student
             classid = 0
-
+            print("Post: "+str(request.POST))
             for key in request.POST: #Gets class id and makes every student of that class not absent
                 if key.endswith("classid"):
                     classid = request.POST[key]
@@ -163,6 +163,16 @@ class MyClassesView(View):
                     print("absent: "+str(student))
                     student.syg = True
                     student.save()
+
+                elif key.endswith("newstudentname"):
+                    currentstudentname = request.POST[key]
+                    classquery = Klasse.objects.all()[0].id
+                    currentclass = Klasse.objects.filter(id=classid)[0]
+                    studentquery = currentclass.elev_set.filter(navn=currentstudentname)
+                    if studentquery.count() == 0:
+                        student = Elev(navn=currentstudentname, klasse=currentclass, syg=False)
+                        student.save()
+
 
 
         classes = Klasse.objects.filter(user=request.user)
