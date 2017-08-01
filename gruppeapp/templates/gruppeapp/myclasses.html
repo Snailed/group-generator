@@ -2,6 +2,11 @@
 {% load static %}
 
 {% block title %}Group Generator{% endblock %}
+
+{% block stylesheets%}
+<link rel="stylesheet" href="{% static "gruppeapp/css/myclasses.css" %}">
+{%endblock%}
+
 {% block body %}
 <div class="container">
 
@@ -20,36 +25,50 @@
     {% endfor %}
   </div>
 </div>
-<div class="col-md-8">
+<div class="col-md-5">
+
   {%for class in classes%}
-    <form method="post" action="{%url 'gruppeapp:myclasses'%}">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Students in {{class.navn}}</h3>
+    </div>
+    <form method="post" action="{%url 'gruppeapp:myclasses'%}" id="studentform">
       {% csrf_token%}
       <input type="hidden" name="{{class.id}}classid" value="{{class.id}}">
-      <table class="table">
 
-        <tr><th>Name</th><th>Status</th></tr>
-        {%for student in class.elev_set.all %}
-
-          <tr><td>
-            <input type="hidden" name="{{student.id}}name" value="{{student.navn}}">
-            {{student.navn}}
-          </td><td><input type="checkbox" name="{{student.id}}absence" {%if student.syg%}checked{%endif%}></td></tr>
-        {%endfor%}
-
-      <tr id="inputrow"><td colspan="2"><div class="input-group col-md-4">
-        <input type="text" id="newstudentinput" class="form-control" placeholder="Add student...">
-        <span class="input-group-btn"><button type="button" class="btn-default btn" id="newstudentbutton"><span class="glyphicon glyphicon-plus"></span></button></span>
-      </div></td></tr>
-
-      </table>
-      <div class="row">
+        <div class="panel-body">
+        <div class="list-group" >
+          {%for student in class.elev_set.all %}
 
 
-      <button type="submit" name="save" class="btn-primary btn pull-right col-md-2">Save Changes</button>
+            <div class="list-group-item">
+              <div class="row">
+                <div class="col-md-8">
+                  <p>{{student.navn}} <span class="glyphicon glyphicon-pencil editstudent" data-student="{{student.id}}"> </span></p>
+                  <input type="hidden" name="{{student.id}}name" value="{{student.navn}}">
+                </div>
+                <div class="col-md-4">
+                  <span class="glyphicon glyphicon-remove removestudent pull-right" data-student="{{student.id}}"></span> <br>
+
+                </div>
+
+              </div>
+            </div>
+          {%endfor%}
+
+            <div colspan="2" class="list-group-item" id="studentlist">
+            <div class="input-group">
+              <input type="text" id="newstudentinput" class="form-control" placeholder="Add student...">
+              <span class="input-group-btn"><button type="button" class="btn-default btn" id="newstudentbutton" ><span class="glyphicon glyphicon-plus"></span></button></span>
+            </div></div>
+
+      </div>
     </div>
+      <button data-toggle="popover" data-content="Remember to save your group!" type="submit" name="save" class="btn-default btn pull-right" id="savebutton">Save Changes</button>
     </form>
-
+</div>
   {%endfor%}
+
 </div>
 
 

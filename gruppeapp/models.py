@@ -15,7 +15,6 @@ class Klasse(models.Model):
 class Elev(models.Model):
     klasse = models.ForeignKey(Klasse, on_delete=models.CASCADE)
     navn = models.CharField(max_length=100)
-    syg = models.BooleanField()
     def __str__(self):
         return self.navn
 

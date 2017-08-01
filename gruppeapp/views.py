@@ -144,9 +144,7 @@ class MyClassesView(View):
             for key in request.POST: #Gets class id and makes every student of that class not absent
                 if key.endswith("classid"):
                     classid = request.POST[key]
-                    print("classid = "+str(classid))
                     currentclass = Klasse.objects.filter(id=classid)[0]
-                    Elev.objects.filter(klasse=currentclass).update(syg=False)
 
             for key in request.POST:
                 if key.endswith("name"): #gets the name of a student and checks if it already exists. This should be moved to a "Create student" view!
@@ -155,14 +153,8 @@ class MyClassesView(View):
                     currentclass = Klasse.objects.filter(id=classid)[0]
                     studentquery = currentclass.elev_set.filter(navn=currentstudentname)
                     if studentquery.count() == 0:
-                        student = Elev(navn=currentstudentname, klasse=currentclass, syg=False)
+                        student = Elev(navn=currentstudentname, klasse=currentclass)
                         student.save()
-
-                elif key.endswith("absence"):
-                    student = Elev.objects.filter(id=key[:len(key)-7])[0]
-                    print("absent: "+str(student))
-                    student.syg = True
-                    student.save()
 
                 elif key.endswith("newstudentname"):
                     currentstudentname = request.POST[key]
@@ -170,7 +162,7 @@ class MyClassesView(View):
                     currentclass = Klasse.objects.filter(id=classid)[0]
                     studentquery = currentclass.elev_set.filter(navn=currentstudentname)
                     if studentquery.count() == 0:
-                        student = Elev(navn=currentstudentname, klasse=currentclass, syg=False)
+                        student = Elev(navn=currentstudentname, klasse=currentclass)
                         student.save()
 
 
