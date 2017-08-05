@@ -140,30 +140,30 @@ class MyClassesView(View):
         if request.user.is_authenticated:
             currentstudentname = "" #stores the name of the current student
             classid = 0
+            #sortedPOST = {}
             print("Post: "+str(request.POST))
-            for key in request.POST: #Gets class id and makes every student of that class not absent
+            #for key in request.POST:
+            #    if key.endswith("name"):
+
+
+            for key in request.POST: #Gets class id and deletes every student of that class
                 if key.endswith("classid"):
                     classid = request.POST[key]
                     currentclass = Klasse.objects.filter(id=classid)[0]
+                    currentclass.elev_set.all().delete()
 
-            for key in request.POST:
-                if key.endswith("name"): #gets the name of a student and checks if it already exists. This should be moved to a "Create student" view!
+            for key in sorted(request.POST): #TODO: Gør så den gemmer flere tilføjede elementer!
+                if key.endswith("name"): #gets the name of a student and creates it.
                     currentstudentname = request.POST[key]
-                    classquery = Klasse.objects.all()[0].id
                     currentclass = Klasse.objects.filter(id=classid)[0]
-                    studentquery = currentclass.elev_set.filter(navn=currentstudentname)
-                    if studentquery.count() == 0:
-                        student = Elev(navn=currentstudentname, klasse=currentclass)
-                        student.save()
+                    student = Elev(navn=currentstudentname, klasse=currentclass)
+                    student.save()
 
                 elif key.endswith("newstudentname"):
                     currentstudentname = request.POST[key]
-                    classquery = Klasse.objects.all()[0].id
                     currentclass = Klasse.objects.filter(id=classid)[0]
-                    studentquery = currentclass.elev_set.filter(navn=currentstudentname)
-                    if studentquery.count() == 0:
-                        student = Elev(navn=currentstudentname, klasse=currentclass)
-                        student.save()
+                    student = Elev(navn=currentstudentname, klasse=currentclass)
+                    student.save()
 
 
 

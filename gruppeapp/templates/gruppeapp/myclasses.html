@@ -34,29 +34,29 @@
     </div>
     <form method="post" action="{%url 'gruppeapp:myclasses'%}" id="studentform">
       {% csrf_token%}
-      <input type="hidden" name="{{class.id}}classid" value="{{class.id}}">
+      <input type="hidden" name="classid" value="{{class.id}}">
 
         <div class="panel-body">
-        <div class="list-group" >
+        <div class="list-group studentlist" >
           {%for student in class.elev_set.all %}
 
-
-            <div class="list-group-item">
+            <div class="list-group-item" id="{{forloop.counter}}studentcontainer">
               <div class="row">
                 <div class="col-md-8">
-                  <p>{{student.navn}} <span class="glyphicon glyphicon-pencil editstudent" data-student="{{student.id}}"> </span></p>
-                  <input type="hidden" name="{{student.id}}name" value="{{student.navn}}">
+                  <p>{{student.navn}} <span class="glyphicon glyphicon-pencil editstudent" data-student="{{forloop.counter}}"> </span></p>
+                  <input type="hidden" name="{{forloop.counter}}name" value="{{student.navn}}">
                 </div>
                 <div class="col-md-4">
-                  <span class="glyphicon glyphicon-remove removestudent pull-right" data-student="{{student.id}}"></span> <br>
+                  <span class="glyphicon glyphicon-remove removestudent pull-right" data-student="{{forloop.counter}}"></span> <br>
 
                 </div>
 
               </div>
             </div>
+
           {%endfor%}
 
-            <div colspan="2" class="list-group-item" id="studentlist">
+            <div colspan="2" class="list-group-item" id="studentinput">
             <div class="input-group">
               <input type="text" id="newstudentinput" class="form-control" placeholder="Add student...">
               <span class="input-group-btn"><button type="button" class="btn-default btn" id="newstudentbutton" ><span class="glyphicon glyphicon-plus"></span></button></span>
