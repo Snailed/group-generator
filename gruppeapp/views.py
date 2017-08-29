@@ -12,6 +12,7 @@ from django.core.exceptions import ValidationError
 from models import Gruppe, GruppeElev, Klasse, Elev
 from forms import UserForm, LoginForm
 import uuid
+import operator
 # Create your views here.
 #Here, users can enter student names etc. and submit.
 
@@ -138,12 +139,9 @@ class MyClassesView(View):
 
     def post(self, request):
         if request.user.is_authenticated:
-            currentstudentname = "" #stores the name of the current student
             classid = 0
-            #sortedPOST = {}
-            print("Post: "+str(request.POST))
-            #for key in request.POST:
-            #    if key.endswith("name"):
+            #print("Post: "+str(sorted(request.POST, key=operator.itemgetter(0))))
+
 
 
             for key in request.POST: #Gets class id and deletes every student of that class
@@ -152,7 +150,7 @@ class MyClassesView(View):
                     currentclass = Klasse.objects.filter(id=classid)[0]
                     currentclass.elev_set.all().delete()
 
-            for key in sorted(request.POST): #TODO: Gør så den gemmer flere tilføjede elementer!
+            for key in sorted(request.POST): 
                 if key.endswith("name"): #gets the name of a student and creates it.
                     currentstudentname = request.POST[key]
                     currentclass = Klasse.objects.filter(id=classid)[0]

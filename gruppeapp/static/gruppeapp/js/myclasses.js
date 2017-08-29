@@ -1,28 +1,32 @@
 var newstudentcounter = 1;
+var counterhelp = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 $("document").ready(function() {
   while ($("#"+newstudentcounter.toString()+"studentcontainer").length) {
+    console.log("Fandt "+counterhelp[newstudentcounter]);
     newstudentcounter++;
+    
   }
 
 
   $("#newstudentbutton").click(function(event) {
     /* Act on the event */
-    //console.log($("#newstudentinput").val())
-    var name = $("#newstudentinput").val();
+    //console.log($("#newstudentinput").val();
     newstudent();
-
+    newstudentcounter++;
 
 
     $("#newstudentinput").val("");
-    newstudentcounter++;
+    
 
   });
 
 
-  $(".editstudent").click(function(event) {
+  $(".studentlist").on("click", ".editstudent", function(event) {
     /* Act on the event */
-    alert("Hej!");
+    var studenttobeedit = $(event.currentTarget).data("student");
+    alert("Du klikkede på"+$("name="+studenttobeedit+"name").val());
   });
+  
 
   $(".studentlist").on("click", ".removestudent", function(event) {
     var string = $(event.currentTarget).data("student");
@@ -53,7 +57,7 @@ var newstudent = function() {
     '<div class="row">'+
       '<div class="col-md-8">'+
         '<p>'+name+' <span class="glyphicon glyphicon-pencil editstudent" data-newstudent="'+newstudentcounter+'"> </span></p>'+
-        '<input type="hidden" name="'+newstudentcounter+'name" value="'+name+'">'+
+        '<input type="hidden" name="'+counterhelp[newstudentcounter]+'name" value="'+name+'">'+
       '</div>'+
       '<div class="col-md-4">'+
         '<span class="glyphicon glyphicon-remove removestudent pull-right" data-newstudent="'+newstudentcounter+'"></span> <br>'+

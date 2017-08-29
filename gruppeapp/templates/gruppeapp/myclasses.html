@@ -1,6 +1,6 @@
 {% extends "gruppeapp/base.html" %}
 {% load static %}
-
+{% load gruppeapp_extras %}
 {% block title %}Group Generator{% endblock %}
 
 {% block stylesheets%}
@@ -9,7 +9,6 @@
 
 {% block body %}
 <div class="container">
-
 {%if loginerror is True%}
 <h1 class="page-header">You are not logged in!</h1>
 
@@ -43,8 +42,8 @@
             <div class="list-group-item" id="{{forloop.counter}}studentcontainer">
               <div class="row">
                 <div class="col-md-8">
-                  <p>{{student.navn}} <span class="glyphicon glyphicon-pencil editstudent" data-student="{{forloop.counter}}"> </span></p>
-                  <input type="hidden" name="{{forloop.counter}}name" value="{{student.navn}}">
+                  <p>{{student.navn}} <span class="glyphicon glyphicon-pencil editstudent" data-student="{{ abclist.forloop.counter }}"> </span></p>
+                  <input type="hidden" name="{{ forloop.counter0|abc }}name" value="{{student.navn}}">
                 </div>
                 <div class="col-md-4">
                   <span class="glyphicon glyphicon-remove removestudent pull-right" data-student="{{forloop.counter}}"></span> <br>

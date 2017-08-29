@@ -1,6 +1,6 @@
 db.sqlite3
 .vscode
-
+.idea
 # Compiled source #
 ###################
 *.com
