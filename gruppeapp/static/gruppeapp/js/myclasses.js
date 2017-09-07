@@ -1,10 +1,16 @@
 var newstudentcounter = 1;
 var counterhelp = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+//Editable field activate
+
+
 $("document").ready(function() {
+
+  prepeditable();
+
+
   while ($("#"+newstudentcounter.toString()+"studentcontainer").length) {
-    console.log("Fandt "+counterhelp[newstudentcounter]);
+
     newstudentcounter++;
-    
   }
 
 
@@ -20,12 +26,13 @@ $("document").ready(function() {
 
   });
 
+  /*$(".editstudent").click(function(event) {
+    var studenttobeedit = $(this).data("student");
 
-  $(".studentlist").on("click", ".editstudent", function(event) {
-    /* Act on the event */
-    var studenttobeedit = $(event.currentTarget).data("student");
-    alert("Du klikkede på"+$("name="+studenttobeedit+"name").val());
-  });
+    alert("Du klikkede på"+$("#"+studenttobeedit+"name").val());
+    console.log("Hej!"+studenttobeedit);
+  })*/
+
   
 
   $(".studentlist").on("click", ".removestudent", function(event) {
@@ -42,12 +49,14 @@ $("document").ready(function() {
   });
 
   $('#studentform').on('keypress', function(e) {
+  if ($("#newstudentinput").is(":focus")) {
     if (e.which == 13) {
       newstudent();
       newstudentcounter++;
       return false;
     }
     return true;
+    }
 });
 });
 
@@ -56,8 +65,8 @@ var newstudent = function() {
   $("#studentinput").before('<div class="list-group-item" id="'+newstudentcounter+'newstudentcontainer" >'+
     '<div class="row">'+
       '<div class="col-md-8">'+
-        '<p>'+name+' <span class="glyphicon glyphicon-pencil editstudent" data-newstudent="'+newstudentcounter+'"> </span></p>'+
-        '<input type="hidden" name="'+counterhelp[newstudentcounter]+'name" value="'+name+'">'+
+        '<p  data-type="text" data-title="Enter student name" class="studentnamefield">'+name+'</p>'+
+        '<input type="hidden" name="'+counterhelp[newstudentcounter]+'name" value="'+name+'" id="'+counterhelp[newstudentcounter]+'name">'+
       '</div>'+
       '<div class="col-md-4">'+
         '<span class="glyphicon glyphicon-remove removestudent pull-right" data-newstudent="'+newstudentcounter+'"></span> <br>'+
@@ -69,4 +78,14 @@ var newstudent = function() {
 
   $("#newstudentinput").val("");
   $("#savebutton").popover("show");
+  prepeditable();
+}
+
+var prepeditable = function() {
+$.fn.editable.defaults.mode = 'inline';
+  $('.studentnamefield').editable();
+
+  $('.studentnamefield').on('save', function(e, params) {
+    $(this).next().next().val(params.newValue);
+  });
 }

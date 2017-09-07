@@ -5,6 +5,8 @@
 
 {% block stylesheets%}
 <link rel="stylesheet" href="{% static "gruppeapp/css/myclasses.css" %}">
+<!--Bootstrap editable field plugin -->
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
 {%endblock%}
 
 {% block body %}
@@ -42,11 +44,11 @@
             <div class="list-group-item" id="{{forloop.counter}}studentcontainer">
               <div class="row">
                 <div class="col-md-8">
-                  <p>{{student.navn}} <span class="glyphicon glyphicon-pencil editstudent" data-student="{{ abclist.forloop.counter }}"> </span></p>
-                  <input type="hidden" name="{{ forloop.counter0|abc }}name" value="{{student.navn}}">
+                  <p  data-type="text" data-title="Enter student name" class="studentnamefield">{{student.navn}}</p>
+                  <input type="hidden" name="{{ forloop.counter0|abc }}name" id="{{ forloop.counter0|abc }}name" value="{{student.navn}}">
                 </div>
                 <div class="col-md-4">
-                  <span class="glyphicon glyphicon-remove removestudent pull-right" data-student="{{forloop.counter}}"></span> <br>
+                  <span class="glyphicon glyphicon-remove removestudent pull-right" data-student="{{forloop.counter|abc}}"></span> <br>
 
                 </div>
 
@@ -76,4 +78,6 @@
 
 {% block scripts %}
 <script type="text/javascript" src="{% static "gruppeapp/js/myclasses.js" %}"></script>
+<!--Bootstrap editable field plugin -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 {% endblock scripts %}

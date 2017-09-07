@@ -5,3 +5,8 @@
 .editstudent, .removestudent {
   color:#9e9e9e;
 }
+.studentnamefield{
+    display:inline-block;
+
+}
+p.editable-click { border-bottom: none; }
