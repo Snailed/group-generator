@@ -68,8 +68,36 @@
         <input type='hidden' id="studentcounter" name="studentcounter" value=0>
 
         <!-- Input that contains how many groups -->
-        <input type='number' min="1" max="20" name="numberofgroupsinput" placeholder="Number of groups" required="True">
-        <button class="btn btn-primary" type="submit">Generate Group</button>
+        <div class="form-group col-md-8 col-lg-6 col-sm-10">
+          <div class="input-group">
+            <input class="form-control" type='number' min="1" max="20" name="numberofgroupsinput" placeholder="Groups" required="True">
+            <div class="input-group-btn">
+              <button class="btn btn-primary" type="submit">Generate Group</button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+
+      <form id="creategroupfromclass" action="{%url 'gruppeapp:creategroupfromclass' %}" method="post">
+        {%csrf_token%}
+        <div class="form-group">
+          <div class="input-group">
+            <select required="True" form="creategroupfromclass" {%if not user.is_authenticated %}disabled="True"{%endif%} class="form-control">
+              {% if classes is not None %}
+              {% for class in classes %}
+                <option value="{{class.id}}">{{class.navn}}</option>
+              {%endfor%}
+              {%endif%}
+            </select>
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit" {%if not user.is_authenticated %}disabled="True"{%endif%}>
+                  Create group from class
+                </button>
+              </span>
+            </div>
+        </div>
       </form>
 
 
