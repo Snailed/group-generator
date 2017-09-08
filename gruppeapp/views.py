@@ -166,12 +166,20 @@ class MyClassesView(View):
 
 
         classes = Klasse.objects.filter(user=request.user)
-        return render(request, self.template_name,{"classes": classes, "loginform": LoginForm(None)})
+        classfromquery = classes.filter(pk=classid).first()
+        return render(request, self.template_name,{"classes": classes, "loginform": LoginForm(None), "currentclass":classfromquery})
 
-    def get(self, request):
+    def get(self, request, currentclass=0):
         if request.user.is_authenticated:
             classes = Klasse.objects.filter(user=request.user)
-            context = {"classes": classes, "loginform": LoginForm(None)}
+            print("Thing!"+str(classes.first().id))
+            print("Currentclass="+str(currentclass))
+            if currentclass is not 0:
+                classfromquery = classes.filter(pk=currentclass).first()
+            else:
+                classfromquery = classes.first()
+            print("Class from query:"+str(classfromquery))
+            context = {"classes": classes, "loginform": LoginForm(None), "currentclass": classfromquery}
             return render(request, self.template_name, context)
         else:
             context = {"loginerror": True}

@@ -19,27 +19,27 @@
 <div class="col-md-4">
   <div class="list-group">
     {%for class in classes %}
-    <a class="list-group-item">
+    <a class="list-group-item {% if class == currentclass %}active{%endif%}" href="{% url 'gruppeapp:myclasses' currentclass=class.pk %}">
       <h4 class="list-group-item-heading">{{class.navn}} <span class="badge pull-right">Students: {{class.elev_set.all|length}}</h4>
-      <p class="list-group-item-text">{{class.description}}</p>
+      <p class="list-group-item-text">{{clasgit s.description}}</p>
     </a>
     {% endfor %}
   </div>
 </div>
 <div class="col-md-5">
 
-  {%for class in classes%}
+
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Students in {{class.navn}}</h3>
+      <h3 class="panel-title">Students in {{currentclass.navn}}</h3>
     </div>
     <form method="post" action="{%url 'gruppeapp:myclasses'%}" id="studentform">
       {% csrf_token%}
-      <input type="hidden" name="classid" value="{{class.id}}">
+      <input type="hidden" name="classid" value="{{currentclass.id}}">
 
         <div class="panel-body">
         <div class="list-group studentlist" >
-          {%for student in class.elev_set.all %}
+          {%for student in currentclass.elev_set.all %}
 
             <div class="list-group-item" id="{{forloop.counter}}studentcontainer">
               <div class="row">
@@ -68,7 +68,7 @@
       <button data-toggle="popover" data-content="Remember to save your group!" type="submit" name="save" class="btn-default btn pull-right" id="savebutton">Save Changes</button>
     </form>
 </div>
-  {%endfor%}
+
 
 </div>
 
