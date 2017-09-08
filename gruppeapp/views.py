@@ -184,3 +184,16 @@ class MyClassesView(View):
         else:
             context = {"loginerror": True}
             return render(request, self.template_name, context)
+
+class CreateNewClass(View):
+    def post(self, request):
+        if request.user.is_authenticated:
+            classname=request.POST["classname"]
+            description = request.POST["description"]
+            newclass = Klasse(navn=classname, description=description, user=request.user)
+            newclass.save()
+            redirect("gruppeapp:myclasses")
+        raise Http404("Page not found")
+
+    def get(self, request):
+        redirect("gruppeapp:myclasses")
