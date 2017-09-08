@@ -9,8 +9,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.password_validation import validate_password, password_validators_help_texts
 from django.core.exceptions import ValidationError
-from models import Gruppe, GruppeElev, Klasse, Elev
-from forms import UserForm, LoginForm
+from .models import Gruppe, GruppeElev, Klasse, Elev
+from .forms import UserForm, LoginForm
 import uuid
 import operator
 # Create your views here.
@@ -20,7 +20,10 @@ def makegroup(request):
     loginform = LoginForm(None)
     error = False
     errormessage = ""
-    context = {"error": error, "errormessage": errormessage, "loginform": loginform}
+    classes = None
+    if request.user.is_authenticated:
+        classes = Klasse.objects.filter(user=request.user)
+    context = {"error": error, "errormessage": errormessage, "loginform": loginform, "classes":classes}
     return render(request, "gruppeapp/welcome.html", context)
 
 #Here, users can view the newly generated group!
@@ -32,7 +35,7 @@ class Creategroup(View):
         numberofgroups = int(request.POST["numberofgroupsinput"])
         for i in range(0,int(studentCounter)+1):
             try:
-                currentStudent = unicode(request.POST["student"+str(i)])
+                currentStudent = request.POST["student"+str(i)]
             except MultiValueDictKeyError:
                 error = True
                 errormessage = "No students added"
@@ -59,13 +62,20 @@ class Creategroup(View):
     def get(self,request):
         raise Http404("Page not found")
 
+class Creategroupfromclass(View):
+    def get(self,request):
+        pass
+    def post(self,request):
+        pass
+
+
 def viewgroup(request, linkhash):
     loginform = LoginForm(None)
 
     gruppe = Gruppe.objects.get(link=linkhash)
     students = []
     for student in GruppeElev.objects.filter(gruppe=gruppe):
-        students.append(unicode(student))
+        students.append(student)
 
     context = {
     "students": students,
@@ -172,7 +182,7 @@ class MyClassesView(View):
     def get(self, request, currentclass=0):
         if request.user.is_authenticated:
             classes = Klasse.objects.filter(user=request.user)
-            print("Thing!"+str(classes.first().id))
+           # print("Thing!"+str(classes.first().id))
             print("Currentclass="+str(currentclass))
             if currentclass is not 0:
                 classfromquery = classes.filter(pk=currentclass).first()
@@ -182,7 +192,7 @@ class MyClassesView(View):
             context = {"classes": classes, "loginform": LoginForm(None), "currentclass": classfromquery}
             return render(request, self.template_name, context)
         else:
-            context = {"loginerror": True}
+            context = {"loginerror": True, "loginform":LoginForm(None)}
             return render(request, self.template_name, context)
 
 class CreateNewClass(View):
