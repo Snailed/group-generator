@@ -14,3 +14,7 @@ p.editable-click { border-bottom: none; }
 #createclasslistgroupitem {
     text-align:center;
 }
+.classinputtextfield {
+    display:inline-block;
+    width:100%;
+}

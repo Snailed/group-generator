@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^logout/$', logout, {'next_page': settings.LOGOUT_REDIRECT_URL}, name="logout"),
     url(r'^myclasses/(?P<currentclass>[0-9]{1,})$', views.MyClassesView.as_view(), name="myclasses"),
     url(r'^myclasses/createnewclass/$', views.CreateNewClass.as_view(),name="createnewclass"),
+    url(r'^myclasses/deleteclass/$', views.DeleteClass.as_view(), name="deleteclass"),
     url(r'^myclasses/$', views.MyClassesView.as_view(), name="myclasses"),
 
     #url(r'^newstudent/$', views.NewStudentView.as_view(), name="newstudent"),
