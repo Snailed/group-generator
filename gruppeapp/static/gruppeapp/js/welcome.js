@@ -15,4 +15,14 @@ $("document").ready(function() {
     counter = 0;
     $("#studentcounter").val(counter);
   });
+
+
+  $("#studentsfromclassform").submit(function() {
+  counter = $("input:checked").length-1;
+  alert("Antal checked: "+counter);
+  $("#studentsfromclasscounter").val(counter);
+  return true;
+  });
+
+
 });

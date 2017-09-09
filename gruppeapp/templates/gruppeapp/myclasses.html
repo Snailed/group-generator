@@ -20,7 +20,7 @@
   <div class="list-group">
     {%for class in classes %}
     <a class="list-group-item {% if class == currentclass %}active{%endif%}" href="{% url 'gruppeapp:myclasses' currentclass=class.pk %}">
-      <h4 class="list-group-item-heading">{{class.navn}} <span class="badge pull-right">Students: {{class.elev_set.all|length}}</h4>
+      <h4 class="list-group-item-heading">{{class.navn}} <span class="badge pull-right">Students: {{class.elev_set.all|length}}</span></h4>
       <p class="list-group-item-text">{{class.description}}</p>
     </a>
     {% endfor %}

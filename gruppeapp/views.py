@@ -16,14 +16,18 @@ import operator
 # Create your views here.
 #Here, users can enter student names etc. and submit.
 
-def makegroup(request):
+def makegroup(request, selectedclassid=0):
     loginform = LoginForm(None)
     error = False
     errormessage = ""
     classes = None
+    selectedclass = None
+
     if request.user.is_authenticated:
         classes = Klasse.objects.filter(user=request.user)
-    context = {"error": error, "errormessage": errormessage, "loginform": loginform, "classes":classes}
+        if selectedclassid != 0:
+            selectedclass = Klasse.objects.filter(id=selectedclassid).first()
+    context = {"error": error, "errormessage": errormessage, "loginform": loginform, "classes":classes, "selectedclass":selectedclass}
     return render(request, "gruppeapp/welcome.html", context)
 
 #Here, users can view the newly generated group!
@@ -33,12 +37,14 @@ class Creategroup(View):
         students = []
         studentCounter = request.POST["studentcounter"]
         numberofgroups = int(request.POST["numberofgroupsinput"])
-        for i in range(0,int(studentCounter)+1):
+        for i in range(0, int(studentCounter)+1):
             try:
                 currentStudent = request.POST["student"+str(i)]
             except MultiValueDictKeyError:
                 error = True
                 errormessage = "No students added"
+                print("Tried to find student"+str(i))
+                print(str(request.POST))
                 context = {"error": error, "errormessage": errormessage}
                 return render(request, "gruppeapp/welcome.html", context)
             except ValueError:
@@ -64,9 +70,11 @@ class Creategroup(View):
 
 class Creategroupfromclass(View):
     def get(self,request):
-        pass
+        return redirect("gruppeapp:makegroup")
     def post(self,request):
-        pass
+        classid=request.POST["classid"]
+        return redirect("gruppeapp:makegroupwithclassid", selectedclassid=classid)
+
 
 
 def viewgroup(request, linkhash):
