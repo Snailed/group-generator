@@ -16,6 +16,7 @@
 
 {%endif%}
 
+  {% if loginerror is not True %}
 <div class="col-md-4">
   <div class="list-group">
     {%for class in classes %}
@@ -135,7 +136,7 @@
 
 </div>
 
-
+{%endif%}
 </div>
 {% endblock %}
 

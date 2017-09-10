@@ -19,7 +19,6 @@ $("document").ready(function() {
 
   $("#studentsfromclassform").submit(function() {
   counter = $("input:checked").length-1;
-  alert("Antal checked: "+counter);
   $("#studentsfromclasscounter").val(counter);
   return true;
   });

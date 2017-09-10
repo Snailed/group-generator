@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [
@@ -129,6 +130,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGOUT_REDIRECT_URL = '/group/'
+
 
 if not DEBUG:
     import dj_database_url
