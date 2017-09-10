@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^myclasses/deleteclass/$', views.DeleteClass.as_view(), name="deleteclass"),
     url(r'^myclasses/$', views.MyClassesView.as_view(), name="myclasses"),
     url(r'^(?P<selectedclassid>[0-9]{1,})$', views.makegroup, name='makegroupwithclassid'),
+    url(r'^about/$', views.About.as_view(), name="about"),
     url(r'^$', views.makegroup, name='makegroup'),
 
 ]

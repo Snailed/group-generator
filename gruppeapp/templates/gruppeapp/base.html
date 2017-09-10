@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-        <title>{% block title %} {% endblock %}</title>
+        <title>{% block title %} {% endblock %} - Group Generator</title>
         <link rel="stylesheet" href="{% static "gruppeapp/css/base.css" %}">
         {% block stylesheets %} {% endblock %}
         <!--Bootstrap CSS with style "Flatly" from Bootswatch.com -->
@@ -40,7 +40,7 @@
 
 
           <ul class="nav navbar-nav">
-            <li><a href="#">About</a></li>
+            <li><a href="{%url 'gruppeapp:about'%}">About</a></li>
           </ul>
 
           <!-- TODO: Replace placeholder and add hidability-->

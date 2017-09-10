@@ -75,7 +75,11 @@ class Creategroupfromclass(View):
         classid=request.POST["classid"]
         return redirect("gruppeapp:makegroupwithclassid", selectedclassid=classid)
 
-
+class About(View):
+    def get(self,request):
+        return render(request, "gruppeapp/about.html", {"loginform":LoginForm(None)})
+    def post(self, request):
+        raise Http404("Page not found")
 
 def viewgroup(request, linkhash):
     loginform = LoginForm(None)
