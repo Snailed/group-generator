@@ -51,7 +51,7 @@
           <input type="text" id="nameinput" placeholder="Student name" class="form-control">
 
           <span class="input-group-btn">
-            <button class="btn btn-default">Add Student</button>
+            <button class="btn btn-primary">Add Student</button>
           </span>
         </div>
       </form>
@@ -72,7 +72,7 @@
           <div class="input-group">
             <input class="form-control" type='number' min="1" max="20" name="numberofgroupsinput" placeholder="" required="True">
             <div class="input-group-btn">
-              <button class="btn btn-primary" type="submit">Generate Group</button>
+              <button class="btn btn-success" type="submit">Generate Group</button>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@
               {%endif%}
             </select>
               <span class="input-group-btn">
-                <button class="btn btn-default" type="submit" {%if not user.is_authenticated %}disabled="True"{%endif%}>
+                <button class="btn btn-primary" type="submit" {%if not user.is_authenticated %}disabled="True"{%endif%}>
                   Create group from class
                 </button>
               </span>
