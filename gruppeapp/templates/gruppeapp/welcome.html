@@ -1,6 +1,9 @@
 {% extends "gruppeapp/base.html" %}
 {% load static %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static "gruppeapp/css/welcome.css" %}">
+{%endblock%}
 {% block title %}Group Generator{% endblock %}
 
 {% block body %}
@@ -24,17 +27,14 @@
       </div>
     <!-- Table that shows current students -->
     <div class="panel-body">
-    <table class="table col-md-3 pull-left" id="grouptable" style="table-layout: fixed;">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-      </tr>
+      <ul class="list-group col-md-12 pull-left" id="grouplist">
 
-    </table>
-    <button class="btn btn-sm col-md-2 pull-right" id="clear">Clear Class</button>
+      </ul>
+    </div>
+    <!--<button class="btn btn-sm col-md-2 pull-right" id="clear">Clear Class</button>-->
   </div>
   </div>
-</div>
+
 
   <!-- Right side -->
     <div class="col-md-6">
@@ -65,7 +65,7 @@
       <!-- Hidden form containing students -->
       <form id="studentlist" action="{% url 'gruppeapp:creategroup' %}" method="post">
         {% csrf_token %}
-        <input type='hidden' id="studentcounter" name="studentcounter" value=0>
+        <input type='hidden' id="studentcounter" name="studentcounter" value="0">
 
         <!-- Input that contains how many groups -->
         <div class="form-group col-md-8 col-lg-6 col-sm-10">
