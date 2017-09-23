@@ -8,7 +8,7 @@ $("document").ready(function() {
         $("#nameinput").val("");
         $("#grouplist").append("<li class='list-group-item' id='container"+counter+"'>"+
         "<div class='row'>"+
-        "<div class='col-md-8'>"+
+        "<div class='col-md-8 col-sm-8'>"+
                       "<p  data-type='text' data-title='Enter student name' class='studentnamefield'>"+currentStudent+"</p>"+
                     "</div>"+
                     "<div class='col-md-4 pull-right'>"+
