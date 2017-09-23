@@ -1,8 +1,8 @@
-.editstudent:hover, .removestudent:hover {
+.editstudent:hover, .removestudent:hover, .deleteclass:hover{
   color:black;
   cursor:pointer;
 }
-.editstudent, .removestudent {
+.editstudent, .removestudent, .deleteclass{
   color:#9e9e9e;
 }
 .studentnamefield{

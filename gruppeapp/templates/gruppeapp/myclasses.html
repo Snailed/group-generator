@@ -68,7 +68,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Students in {{currentclass.navn}} <span class="glyphicon glyphicon-trash pull-right" data-toggle="modal" data-target="#deletemodal"></span></h3>
+      <h3 class="panel-title">Students in {{currentclass.navn}} <span class="glyphicon glyphicon-trash pull-right deleteclass" data-toggle="modal" data-target="#deletemodal"></span></h3>
 
 
 
@@ -86,7 +86,7 @@
 
               <form action="{% url 'gruppeapp:deleteclass' %}" method="post">
                 {% csrf_token %}
-                <button type="button" class="btn btn-default" data-dismiss="modal">No, take me back!</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="submit" class="btn btn-danger">Delete class</button>
                 <input type="hidden" name="classid" value="{{currentclass.id}}">
 
