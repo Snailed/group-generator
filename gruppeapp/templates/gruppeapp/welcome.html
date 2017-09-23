@@ -125,6 +125,7 @@
           <div class="row" id="studentsfromclass">
           {% for student in selectedclass.elev_set.all %}
             <div class="checkbox">
+              <input type="hidden" name="studentexists{{forloop.counter0}}" value="1">
               <label><input type="checkbox" name="student{{forloop.counter0}}" value="{{student.navn}}" checked>{{student.navn}}</label>
             </div>
 
@@ -134,7 +135,8 @@
         </div>
 
         <div class="modal-footer">
-          <input type="hidden" name="studentcounter" value="0" id="studentsfromclasscounter">
+          <input type="hidden" name="studentcounter" value="{{selectedclass.elev_set.all|length}}" id="studentsfromclasscounter">
+          <input type="hidden" name="createfromclass" value="1">
           <input class="pull-left" type='number' min="1" max="20" name="numberofgroupsinput" placeholder="Number of groups..." required="True">
           <a class="btn btn-default" href="{% url 'gruppeapp:makegroup' %}">Cancel</a>
           <button type="submit" class="btn btn-primary">Create class!</button>

@@ -37,9 +37,23 @@ class Creategroup(View):
         students = []
         studentCounter = request.POST["studentcounter"]
         numberofgroups = int(request.POST["numberofgroupsinput"])
+        currentStudent=""
+        """if int(request.POST["createfromclass"]) == 1:
+            for i in range(0, int(studentCounter)+1):
+                if int(request.POST["studentexists"+str(i)])==1:
+                    if request.POST["student"+str(i)]:
+                        students.append(request.POST["student"+str(i)])
+                        
+        else:"""
+        print(str(request.POST))
         for i in range(0, int(studentCounter)+1):
+            print("trying to find student "+str(i))
             try:
-                currentStudent = request.POST["student"+str(i)]
+                if request.POST.get("student"+str(i),0) is not 0:
+                    print("Added student "+str(i))
+                    currentStudent = request.POST["student"+str(i)]
+                    if currentStudent is not "":
+                        students.append(currentStudent)
             except MultiValueDictKeyError:
                 error = True
                 errormessage = "No students added"
@@ -52,7 +66,7 @@ class Creategroup(View):
                 errormessage = "You didn't choose how many groups should be made"
                 context = {"error": error, "errormessage": errormessage}
                 return render(request, "gruppeapp/welcome.html", context)
-            students.append(currentStudent)
+
         shuffle(students)
         linkhash=uuid.uuid4().hex
         gruppe = Gruppe(link=linkhash, antalgrupper=numberofgroups)

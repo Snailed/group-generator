@@ -18,8 +18,8 @@ $("document").ready(function() {
 
 
   $("#studentsfromclassform").submit(function() {
-  counter = $("input:checked").length-1;
-  $("#studentsfromclasscounter").val(counter);
+  //counter = $("input:checked").length;
+  //$("#studentsfromclasscounter").val(counter);
   return true;
   });
 
