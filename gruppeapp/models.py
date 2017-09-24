@@ -12,12 +12,16 @@ class Klasse(models.Model):
     description = models.CharField(max_length=100)
     def __str__(self):
         return self.navn
+
+    def __unicode__(self):
+        return u'{f}'.format(f=self.navn)
 class Elev(models.Model):
     klasse = models.ForeignKey(Klasse, on_delete=models.CASCADE)
     navn = models.CharField(max_length=100)
     def __str__(self):
         return self.navn
-
+    def __unicode__(self):
+        return u'{f}'.format(f=self.navn)
 class Gruppe(models.Model):
     link = models.CharField(max_length=32)
     antalgrupper = models.IntegerField()
@@ -33,3 +37,5 @@ class GruppeElev(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.navn
+    def __unicode__(self):
+        return u'{f}'.format(f=self.navn)

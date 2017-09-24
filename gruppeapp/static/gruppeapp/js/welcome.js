@@ -49,6 +49,8 @@ $("document").ready(function() {
   return true;
 
   });
-
+  $("#generategrouplink").click(function() {
+    $("#generategroupbutton").click();
+  });
 
 });
