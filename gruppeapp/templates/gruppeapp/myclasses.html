@@ -17,7 +17,17 @@
 {%endif%}
 
   {% if loginerror is not True %}
-<div class="col-md-4">
+  <div class="row">
+
+    <div class="col-md-12" id="infotext">
+      <div class="page-header">
+      <h1> My Classes </h1>
+    </div>
+      <p>Here you can create classes to save your students. This will make it way faster to create new groups since you do not have to enter them again. <br>
+      To create groups from a class, go to the <a href="{% url 'gruppeapp:makegroup' %}">main page</a>, select a class and click "Create groups from class".
+    </div>
+
+      <div class="col-md-4">
   <div class="list-group">
     {%for class in classes %}
     <a class="list-group-item {% if class == currentclass %}active{%endif%}" href="{% url 'gruppeapp:myclasses' currentclass=class.pk %}">
@@ -137,6 +147,7 @@
 </div>
 
 {%endif%}
+    </div>
 </div>
 {% endblock %}
 

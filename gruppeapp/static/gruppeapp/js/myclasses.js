@@ -58,6 +58,9 @@ $("document").ready(function() {
     return true;
     }
 });
+$(window).bind('unload', function(){
+  alert("Are you sure you wan")
+});
 });
 
 var newstudent = function() {

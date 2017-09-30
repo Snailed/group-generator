@@ -242,3 +242,6 @@ class DeleteClass(View):
         return redirect("gruppeapp:myclasses")
     def get(self, request):
         return redirect("gruppeapp:myclasses")
+
+def privacypolicy(request):
+    return render(request, "gruppeapp/privacypolicy.htm")

@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^myclasses/$', views.MyClassesView.as_view(), name="myclasses"),
     url(r'^(?P<selectedclassid>[0-9]{1,})$', views.makegroup, name='makegroupwithclassid'),
     url(r'^about/$', views.About.as_view(), name="about"),
+    url(r'^privacypolicy/$', views.privacypolicy, name="privacypolicy"),
     url(r'^$', views.makegroup, name='makegroup'),
 
 ]
