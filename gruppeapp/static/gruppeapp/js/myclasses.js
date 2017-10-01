@@ -1,5 +1,6 @@
 var newstudentcounter = 1;
 var counterhelp = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+var dirty = false;
 //Editable field activate
 
 
@@ -57,10 +58,15 @@ $("document").ready(function() {
     }
     return true;
     }
-});
-$(window).bind('unload', function(){
-  alert("Are you sure you wan")
-});
+    });
+    $("#savebutton").click(function() {
+        dirty = false;
+    });
+    $(window).bind('beforeunload', function(){
+        if (dirty) {
+        return 'Are you sure you want to leave?';
+        }
+    });
 });
 
 var newstudent = function() {
@@ -82,6 +88,7 @@ var newstudent = function() {
   $("#newstudentinput").val("");
   $("#savebutton").popover("show");
   prepeditable();
+  dirty = true;
 }
 
 var prepeditable = function() {
