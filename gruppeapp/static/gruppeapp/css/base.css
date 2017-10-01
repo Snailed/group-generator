@@ -5,3 +5,16 @@
   padding-top: 1em;
 
 }
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+}
+
+#privacypolicy {
+    margin: 20px 0;
+    text-decoration: none;
+    color:gray;
+}
