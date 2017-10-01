@@ -6,18 +6,7 @@ $("document").ready(function() {
     var currentStudent = $("#nameinput").val();
     if (currentStudent !== "") {
         $("#nameinput").val("");
-        $("#grouplist").append("<li class='list-group-item' id='container"+counter+"'>"+
-        "<div class='row'>"+
-        "<div class='col-md-8 col-sm-8'>"+
-                      "<p  data-type='text' data-title='Enter student name' class='studentnamefield'>"+currentStudent+"</p>"+
-                    "</div>"+
-                    "<div class='col-md-4 pull-right'>"+
-                      "<span class='glyphicon glyphicon-remove removestudent pull-right' data-student="+counter+"></span> <br>"+
-                    "</div>"+
-                    "</div>"+
-                    "</li>");
-
-        $("#studentlist").append("<input class='student' type='hidden' value="+currentStudent+" name='student"+counter+"' id='student"+counter+"'>");
+        addstudenttolist(currentStudent);
 
         counter++;
         studentid = counter+1;
@@ -53,4 +42,31 @@ $("document").ready(function() {
     $("#generategroupbutton").click();
   });
 
+  $("#pastestudentbutton").click(function() {
+  var lines = $("#pastetext").val().split('\n');
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i]!="") {
+    addstudenttolist(lines[i]);
+    counter++;
+    studentid = counter+1;
+    $("#studentcounter").val(counter);
+    }
+  }
+  $("#pastetext").clear();
+  });
 });
+
+var addstudenttolist = function(studentname) {
+$("#grouplist").append("<li class='list-group-item' id='container"+counter+"'>"+
+        "<div class='row'>"+
+        "<div class='col-md-8 col-sm-8'>"+
+                      "<p  data-type='text' data-title='Enter student name' class='studentnamefield'>"+studentname+"</p>"+
+                    "</div>"+
+                    "<div class='col-md-4 pull-right'>"+
+                      "<span class='glyphicon glyphicon-remove removestudent pull-right' data-student="+counter+"></span> <br>"+
+                    "</div>"+
+                    "</div>"+
+                    "</li>");
+
+        $("#studentlist").append("<input class='student' type='hidden' value="+studentname+" name='student"+counter+"' id='student"+counter+"'>");
+}

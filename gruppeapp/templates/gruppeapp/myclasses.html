@@ -78,8 +78,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Students in {{currentclass.navn}} <span class="glyphicon glyphicon-trash pull-right deleteclass" data-toggle="modal" data-target="#deletemodal"></span></h3>
-
+      <h3 class="panel-title">Students in {{currentclass.navn}} <span class="pull-right"><span id="pastebutton" title="Paste students from clipboard" class="glyphicon glyphicon-paste" data-toggle="modal" data-target="#pastemodal"></span>     <span title="Delete class" class="glyphicon glyphicon-trash deleteclass" data-toggle="modal" data-target="#deletemodal"></span></span> </h3>
 
 
       <div class="modal fade" tabindex="-1" role="dialog" id="deletemodal">
@@ -105,6 +104,24 @@
           </div>
         </div>
       </div>
+      <div class="modal fade" id="pastemodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" >Paste students from clipboard</h4>
+            </div>
+            <div class="modal-body">
+              <p>Paste students from clipboard into the following text-field and press "Add Students"</p>
+              <textarea id="pastetext" cols="40" rows="10" placeholder="Paste students here..."></textarea>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-md btn-default" data-dismiss="modal">Cancel</button>
+              <button class="btn btn-md btn-success" data-dismiss="modal" id="pastestudentbutton">Add Students</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <form method="post" action="{%url 'gruppeapp:myclasses'%}" id="studentform">
       {% csrf_token%}
@@ -114,7 +131,7 @@
         <div class="list-group studentlist" >
           {%for student in currentclass.elev_set.all %}
 
-            <div class="list-group-item" id="{{forloop.counter}}studentcontainer">
+            <div class="list-group-item" id="{{forloop.counter|abc}}studentcontainer">
               <div class="row">
                 <div class="col-md-8">
                   <p  data-type="text" data-title="Enter student name" class="studentnamefield">{{student.navn}}</p>

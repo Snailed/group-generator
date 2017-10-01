@@ -1,9 +1,15 @@
-.editstudent:hover, .removestudent:hover, .deleteclass:hover{
+.editstudent:hover, .removestudent:hover, .deleteclass:hover, #pastebutton:hover{
   color:black;
   cursor:pointer;
 }
-.editstudent, .removestudent, .deleteclass{
+.editstudent, .removestudent, .deleteclass, #pastebutton{
   color:#9e9e9e;
+}
+#pastebutton {
+    font-size:1.2em;
+}
+.deleteclass {
+    font-size:1em;
 }
 .studentnamefield{
     display:inline-block;

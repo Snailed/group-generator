@@ -18,7 +18,7 @@ $("document").ready(function() {
   $("#newstudentbutton").click(function(event) {
     /* Act on the event */
     //console.log($("#newstudentinput").val();
-    newstudent();
+    newstudent($("#newstudentinput").val());
     newstudentcounter++;
 
 
@@ -52,7 +52,7 @@ $("document").ready(function() {
   $('#studentform').on('keypress', function(e) {
   if ($("#newstudentinput").is(":focus")) {
     if (e.which == 13) {
-      newstudent();
+      newstudent($("#newstudentinput").val());
       newstudentcounter++;
       return false;
     }
@@ -67,10 +67,20 @@ $("document").ready(function() {
         return 'Are you sure you want to leave?';
         }
     });
-});
+    $("#pastestudentbutton").click(function() {
+        console.log("Hej!");
+        var lines = $("#pastetext").val().split('\n');
+        for (var i = 0; i < lines.length; i++) {
+            if (lines[i]!="") {
+                newstudent(lines[i]);
+                newstudentcounter++;
+            }
+        }
+        $("#pastetext").clear();
+        });
+    });
 
-var newstudent = function() {
-  var name = $("#newstudentinput").val();
+var newstudent = function(name) {
   $("#studentinput").before('<div class="list-group-item" id="'+newstudentcounter+'newstudentcontainer" >'+
     '<div class="row">'+
       '<div class="col-md-8">'+

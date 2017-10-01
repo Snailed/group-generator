@@ -47,7 +47,10 @@
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        <p class="panel-title">Students added:</p>
+
+        <p class="panel-title">Students added: <span id="pastebutton" title="Paste students from clipboard" class="glyphicon glyphicon-paste pull-right" data-toggle="modal" data-target="#pastemodal"></span> </p>
+
+
       </div>
     <!-- Table that shows current students -->
     <div class="panel-body">
@@ -55,7 +58,24 @@
 
       </ul>
     </div>
-    <!--<button class="btn btn-sm col-md-2 pull-right" id="clear">Clear Class</button>-->
+      <div class="modal fade" id="pastemodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" >Paste students from clipboard</h4>
+            </div>
+            <div class="modal-body">
+              <p>Paste students from clipboard into the following text-field and press "Add Students"</p>
+              <textarea id="pastetext" cols="40" rows="10" placeholder="Paste students here..."></textarea>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-md btn-default" data-dismiss="modal">Cancel</button>
+              <button class="btn btn-md btn-success" data-dismiss="modal" id="pastestudentbutton">Add Students</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 
 
