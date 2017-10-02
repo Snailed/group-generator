@@ -1,0 +1,19 @@
+@media screen and (max-width: 767px) {
+ body {
+    color:black;
+ }
+ .smallad > a > img {
+    display: initial;
+ }
+ .bigad > a > img {
+    display: none;
+ }
+}
+@media screen and (min-width: 767px) {
+ .smallad > a > img{
+    display: none;
+ }
+ .bigad > a > img{
+    display:initial;
+ }
+}

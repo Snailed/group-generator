@@ -4,14 +4,15 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.views import View
-from random import shuffle
+from random import shuffle, randint
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.password_validation import validate_password, password_validators_help_texts
-from django.core.exceptions import ValidationError
-from .models import Gruppe, GruppeElev, Klasse, Elev
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from .models import Gruppe, GruppeElev, Klasse, Elev, Advertisement
 from .forms import UserForm, LoginForm
 import uuid
+
 import operator
 # Create your views here.
 #Here, users can enter student names etc. and submit.
@@ -96,18 +97,34 @@ class About(View):
         raise Http404("Page not found")
 
 def viewgroup(request, linkhash):
+
     loginform = LoginForm(None)
 
     gruppe = Gruppe.objects.get(link=linkhash)
     students = []
     for student in GruppeElev.objects.filter(gruppe=gruppe):
         students.append(student)
+    smallqueryset = Advertisement.objects.filter(size="small").order_by('?')
+    bigqueryset = Advertisement.objects.filter(size="large").order_by('?')
+    print(str(bigqueryset))
+    smalloverhead = smallqueryset.first()
+    bigoverhead = bigqueryset.first()
+    try:
+        smallunderhead = smallqueryset[1]
+        bigunderhead = bigqueryset[1]
+    except IndexError:
+        smallunderhead = smalloverhead
+        bigunderhead = bigoverhead
 
     context = {
     "students": students,
     "numberofgroups": gruppe.antalgrupper,
     "numberofgroupsrange": range(0,gruppe.antalgrupper),
     "loginform": loginform,
+    "smalloverhead": smalloverhead,
+    "bigoverhead": bigoverhead,
+    "smallunderhead": smallunderhead,
+    "bigunderhead": bigunderhead,
     }
     return render(request, "gruppeapp/viewgroup.html", context)
 

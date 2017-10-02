@@ -39,3 +39,11 @@ class GruppeElev(models.Model):
         return self.navn
     def __unicode__(self):
         return u'{f}'.format(f=self.navn)
+
+class Advertisement(models.Model):
+    size = models.CharField(max_length=10)
+    ishorizontal = models.BooleanField(default=False)
+    text = models.CharField(max_length=300)
+    title = models.CharField(max_length=50)
+    def __str__(self):
+        return self.title

@@ -1,15 +1,24 @@
 {% extends "gruppeapp/base.html" %}
 {% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static "gruppeapp/css/viewgroup.css" %}">
+{%endblock%}
 
 {% block title %}View group{% endblock %}
 
 {% block body %}
+
 <div class="container">
+  {% autoescape off %}
+  <div class="bigad">{{bigoverhead.text}}</div>
+  <div class="smallad">{{smalloverhead.text}}</div>
+  {%endautoescape%}
+
   <div class="row">
     <h1>Your group: </h1>
 
 
-    <table class="table table-bordered" id="generatedgrouptable" style="table-layout:fixed;">
+    <table class="table table-bordered " id="generatedgrouptable" style="table-layout:fixed;">
       <tr>
         <th></th>
         {%for i in numberofgroupsrange %}
@@ -42,8 +51,12 @@
     </tr>
     </table>
     <h5>Your unique link to share with your students: <code>{{request.build_absolute_uri}}</code></h5>
-  </div>
 
+  </div>
+  {% autoescape off %}
+  <div class="bigad">{{bigunderhead.text}}</div>
+  <div class="smallad">{{smallunderhead.text}}</div>
+  {%endautoescape%}
 </div>
 
 {% endblock %}
