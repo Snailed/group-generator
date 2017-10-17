@@ -1,9 +1,10 @@
 var counter = 0;
 var studentid = counter+1;
 $("document").ready(function() {
-  $("#addstudent").submit(function() {
+  $("#addstudent").click(function() {
 
     var currentStudent = $("#nameinput").val();
+
     if (currentStudent !== "") {
         $("#nameinput").val("");
         addstudenttolist(currentStudent);
@@ -14,6 +15,9 @@ $("document").ready(function() {
     }
     // set scroll to bottom whenever student is added
     $('#grouplist').scrollTop($('#grouplist')[0].scrollHeight);
+
+
+
   });
 
       $("#clear").click(function() {
@@ -57,6 +61,26 @@ $("document").ready(function() {
   }
   $("#pastetext").clear();
   });
+
+  if ($("#createGroupFromClassBoolean").val() === "true") {
+        console.log("Findes #createClassFromModal = "+$("#createClassFromModal").children());
+        $("#secretGroupFromClassTrigger").click();
+    }
+
+
+
+  $('body').on('keypress', function(e) {
+  if ($("#nameinput").is(":focus")) {
+  
+    if (e.which == 13) {
+
+      $("#addstudent").click();
+      return false;
+    }
+    return true;
+    }
+  });
+
 });
 
 var addstudenttolist = function(studentname) {

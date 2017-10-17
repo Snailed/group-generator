@@ -57,6 +57,13 @@
       <ul class="list-group col-md-12 col-sm-12 col-xs-12" id="grouplist">
 
       </ul>
+      <div colspan="2" class="" id="studentinput">
+
+            <div class="input-group">
+              <input type="text" id="nameinput" class="form-control" placeholder="Add student...">
+              <span class="input-group-btn"><button type="button" class="btn-default btn" id="addstudent" ><span class="glyphicon glyphicon-plus"></span></button></span>
+            </div>
+      </div>
     </div>
       <div class="modal fade" id="pastemodal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -82,7 +89,7 @@
 
 
       <!-- Form for adding students -->
-      <p>Add students: </p>
+      <!--<p>Add students: </p>
       <form id="addstudent" action="javascript:void(0);">
         <div class="input-group">
           <input type="text" id="nameinput" placeholder="Student name" class="form-control">
@@ -91,7 +98,7 @@
             <button class="btn btn-primary">Add Student</button>
           </span>
         </div>
-      </form>
+      </form>-->
 
 
 
@@ -144,8 +151,9 @@
 </div>
 
 <!--modal that allows users to select students if they want to create a group from a class -->
-{% if selectedclass is not None %}
-<div class="modal show" role="dialog" tabindex="-1">
+
+
+  <div class="modal fade" id="createFromClassModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
 
@@ -183,7 +191,11 @@
     </div>
   </div>
 </div>
+{% if selectedclass is not None %}
+<input id="createGroupFromClassBoolean" value="true" type="hidden">
+<button id="secretGroupFromClassTrigger" type="button" data-toggle="modal" data-target="#createFromClassModal" hidden></button>
 {%endif%}
+
 {% endblock %}
 
 {% block scripts %}
