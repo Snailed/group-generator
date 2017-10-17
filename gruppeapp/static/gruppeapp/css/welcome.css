@@ -11,8 +11,8 @@
   color:#9e9e9e;
 }
 #grouplist {
-height:300px;
-overflow:auto;
+    height:20em;
+    overflow:auto;
 }
 #pastebutton {
     color:#9e9e9e;
@@ -21,4 +21,8 @@ overflow:auto;
 #pastebutton:hover {
     color:black;
     cursor:pointer;
+}
+#studentsfromclass {
+    height:20em;
+    overflow-y:scroll;
 }

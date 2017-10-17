@@ -27,3 +27,7 @@ p.editable-click { border-bottom: none; }
 #infotext {
     margin-bottom: 1em;
 }
+.studentlist {
+    overflow: auto;
+    height:20em;
+}

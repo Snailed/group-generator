@@ -11,8 +11,11 @@ $("document").ready(function() {
         counter++;
         studentid = counter+1;
         $("#studentcounter").val(counter);
-        }
-      });
+    }
+    // set scroll to bottom whenever student is added
+    $('#grouplist').scrollTop($('#grouplist')[0].scrollHeight);
+  });
+
       $("#clear").click(function() {
         $(".student").remove();
         counter = 0;

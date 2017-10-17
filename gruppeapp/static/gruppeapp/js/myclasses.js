@@ -9,7 +9,7 @@ $("document").ready(function() {
   prepeditable();
 
 
-  while ($("#"+newstudentcounter.toString()+"studentcontainer").length) {
+  while ($("#"+counterhelp[newstudentcounter].toString()+"studentcontainer").length) {
 
     newstudentcounter++;
   }
@@ -17,7 +17,7 @@ $("document").ready(function() {
 
   $("#newstudentbutton").click(function(event) {
     /* Act on the event */
-    //console.log($("#newstudentinput").val();
+
     newstudent($("#newstudentinput").val());
     newstudentcounter++;
 
@@ -25,16 +25,8 @@ $("document").ready(function() {
     $("#newstudentinput").val("");
     
 
+
   });
-
-  /*$(".editstudent").click(function(event) {
-    var studenttobeedit = $(this).data("student");
-
-    alert("Du klikkede på"+$("#"+studenttobeedit+"name").val());
-    console.log("Hej!"+studenttobeedit);
-  })*/
-
-  
 
   $(".studentlist").on("click", ".removestudent", function(event) {
     var string = $(event.currentTarget).data("student");
@@ -81,7 +73,7 @@ $("document").ready(function() {
     });
 
 var newstudent = function(name) {
-  $("#studentinput").before('<div class="list-group-item" id="'+newstudentcounter+'newstudentcontainer" >'+
+  $(".studentlist").append('<div class="list-group-item" id="'+counterhelp[newstudentcounter]+'newstudentcontainer" >'+
     '<div class="row">'+
       '<div class="col-md-8">'+
         '<p  data-type="text" data-title="Enter student name" class="studentnamefield">'+name+'</p>'+
@@ -99,6 +91,9 @@ var newstudent = function(name) {
   $("#savebutton").popover("show");
   prepeditable();
   dirty = true;
+
+  // set scroll to bottom whenever student is added to class
+  $('.studentlist').scrollTop($('.studentlist')[0].scrollHeight);
 }
 
 var prepeditable = function() {

@@ -129,6 +129,7 @@
 
         <div class="panel-body">
         <div class="list-group studentlist" >
+
           {%for student in currentclass.elev_set.all %}
 
             <div class="list-group-item" id="{{forloop.counter|abc}}studentcontainer">
@@ -145,16 +146,18 @@
               </div>
             </div>
 
+
           {%endfor%}
 
-            <div colspan="2" class="list-group-item" id="studentinput">
+
+    </div>
+          <div colspan="2" class="list-group-item" id="studentinput">
             <div class="input-group">
               <input type="text" id="newstudentinput" class="form-control" placeholder="Add student...">
               <span class="input-group-btn"><button type="button" class="btn-default btn" id="newstudentbutton" ><span class="glyphicon glyphicon-plus"></span></button></span>
             </div></div>
 
-      </div>
-    </div>
+          </div>
       <button data-toggle="popover" data-content="Remember to save your group!" type="submit" name="save" class="btn-success btn pull-right" id="savebutton">Save Changes</button>
     </form>
 </div>
