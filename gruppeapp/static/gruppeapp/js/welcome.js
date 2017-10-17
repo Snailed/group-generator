@@ -71,7 +71,7 @@ $("document").ready(function() {
 
   $('body').on('keypress', function(e) {
   if ($("#nameinput").is(":focus")) {
-  
+
     if (e.which == 13) {
 
       $("#addstudent").click();

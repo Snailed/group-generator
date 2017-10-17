@@ -75,7 +75,7 @@
 
 <div class="col-md-5">
 
-
+  {% if currentclass is not None %}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Students in {{currentclass.navn}} <span class="pull-right"><span id="pastebutton" title="Paste students from clipboard" class="glyphicon glyphicon-paste" data-toggle="modal" data-target="#pastemodal"></span>     <span title="Delete class" class="glyphicon glyphicon-trash deleteclass" data-toggle="modal" data-target="#deletemodal"></span></span> </h3>
@@ -163,7 +163,7 @@
 </div>
 
 
-
+{%endif%}
 </div>
 
 {%endif%}
